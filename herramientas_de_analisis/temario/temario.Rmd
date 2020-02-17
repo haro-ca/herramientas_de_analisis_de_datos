@@ -18,7 +18,6 @@ knitr::opts_chunk$set(warning = F, message = F, echo = FALSE, results = 'asis')
 ```{r Init}
 options(tidyverse.quiet = TRUE)
 library(tidyverse)
-source(here::here('src', 'resume', 'print_functions.R'))
 ```
 
 
@@ -26,7 +25,7 @@ Aside
 ================================================================================
 
 ```{r Logo}
-knitr::include_graphics(here::here('logo', 'ch.png'))
+knitr::include_graphics(here::here('ch.png'))
 
 ```
 
@@ -38,19 +37,21 @@ Contacto {#contact}
 - <i class="fa fa-envelope"></i> haro_ca@outlook.com
 - <i class="fa fa-twitter"></i> @haro_ca_
 - <i class="fa fa-github"></i> github.com/haro-ca
-- <i class="fab fa-medium"></i> medium.com/haro_ca
+- <i class="fab fa-medium"></i> medium.com/@haro_ca
 
 Objetivo {#skills}
 --------------------------------------------------------------------------------
 
-La intención es proporcionar un lenguaje mínimo 
-para comenzar a practicar, indagar, y profundizar en el trabajo con 
-datos.  
-Se cubrirán los temas que, a mi consideración, son los más importantes (e interesantes)
+El objetivo del curso es proporcionar un panorama completo
+del ecosistema de trabajo con datos. 
+Se expondrán los principales retos que es común enfrentar, así como una
+introducción a las herramientas necesarias para poder entregar un producto completo.
+Los temas cubiertos son, a mi consideración, los más importantes (e interesantes)
 para llevar a cabo un análisis de datos reproducible y en línea con buenas prácticas del ámbito.  
-No se pretende, de ninguna forma, que el curso sea suficiente para dar un conocimiento
-profundo.   
-En ese sentido, este temario, las sesiones, y el material adicional, fungen solo como un compendio y una
+El curso no será suficiente para dar un conocimiento profundo, aunque sí tiene la intención 
+de desarrollar un lenguaje mínimo para comenzar a practicar, indagar, y profundizar en el trabajo con 
+datos.  
+En ese sentido, este temario, las sesiones, y el material adicional, fungen como un compendio y una
 galería de técnicas.  
 
 Disclaimer {#disclaimer}
@@ -185,7 +186,7 @@ Tom Augspurger. https://tomaugspurger.github.io/
 Alex Ionnides. https://alexioannides.com/  
 Julia Silge. https://juliasilge.com/  
 Thomas P. Lindersen. https://www.data-imaginist.com/  
-Arturo Gonzales Bencomo. https://www.medium.com/arturo102964    
+Arturo Gonzales Bencomo. https://www.medium.com/@arturo102964    
 
 N/A
 
