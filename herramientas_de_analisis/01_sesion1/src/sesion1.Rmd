@@ -1,0 +1,528 @@
+---
+title: "> 01 <br> > Herramientas de análisis de datos"
+subtitle: "> Curso breve de técnicas modernas de análisis <br><i class='fas fa-link'></i> [Material](github.com/haro_ca/teaching/herramientas_de_analisis) <br> <i class='fa fa-twitter'></i> [Twitter](https://twitter.com/haro_ca_)"
+author: "Carlos A. Haro"
+date: "29/febrero/2020"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan_themer.css", "slides_style.css"]
+    nature:
+      highlightStyle: solarized-light
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>`
+---
+
+
+```{r setup, include=FALSE}
+# R options
+options(htmltools.dir.version = FALSE)
+# figure height, width, dpi
+knitr::opts_chunk$set(echo = TRUE, 
+                      fig.width = 5, 
+                      fig.height = 3,
+                      dpi = 300)
+# fontawesome
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+# magick
+dev.off <- function(){
+  invisible(grDevices::dev.off())
+}
+# countdown pkg for all slide decks
+library(countdown)
+# set seed
+set.seed(1234)
+```
+
+```{r include=FALSE}
+hook_source <- knitr::knit_hooks$get('source')
+knitr::knit_hooks$set(source = function(x, options) {
+  x <- stringr::str_replace(x, "^[[:blank:]]?([^*].+?)[[:blank:]]*#<<[[:blank:]]*$", "*\\1")
+  hook_source(x, options)
+})
+```
+
+# Temario
+
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'temario.png'), dpi = 72)
+```
+]
+
+.pull-right[
+PDF en [éste](https://github.com/haro-ca/teaching/raw/master/herramientas_de_analisis/temario/temario.pdf) link
+]
+---
+# Temario
+
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'temario.png'), dpi = 72)
+```
+]
+
+.pull-right[
+PDF en [éste](https://github.com/haro-ca/teaching/raw/master/herramientas_de_analisis/temario/temario.pdf) link
+- +33 horas en total  
+- 4 lenguajes de programación  
+(R, Python, Bash y SQL)  
+- 6 softwares  
+- +13 APIs  
+<br><br>
+]
+
+---
+# Temario
+
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'temario.png'), dpi = 72)
+```
+]
+
+.pull-right[
+PDF en [éste](https://github.com/haro-ca/teaching/raw/master/herramientas_de_analisis/temario/temario.pdf) link
+- +33 horas en total  
+- 4 lenguajes de programación  
+(R, Python, Bash y SQL)  
+- 6 softwares  
+- +13 APIs  
+<br>
+**La intención es desarrollar un lenguaje mínimo para comenzar a practicar, indagar y profundizar en 
+el trabajo con datos.**
+]
+
+---
+
+# Justificación
+## ¿Por qué es necesario?
+
+---
+
+# Justificación
+## ¿Por qué es necesario?
+### 1. The Bill James Baseball Abstract
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
+```
+]
+
+---
+# Justificación
+## ¿Por qué es necesario?
+### 1. The Bill James Baseball Abstract
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
+```
+]
+
+.pull-right[
+*Which pitchers and catchers allow runners to steal the most bases?* 
+]
+ 
+---
+# Justificación
+## ¿Por qué es necesario?
+### 1. The Bill James Baseball Abstract
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
+```
+]
+
+.pull-right[
+*Which pitchers and catchers allow runners to steal the most bases?* 
+<br><br>
+"14-year old me was shocked to learn that most of what I've learned from baseball experts and insiders is entirely wrong"  
+~ J.J. Allaire en la #rstudioconf2020 <br> (fundador de RStudio)
+]
+
+---
+# Justificación
+## ¿Por qué es necesario?
+### 1. The Bill James Baseball Abstract  
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
+```
+]
+
+.pull-right[
+*Which pitchers and catchers allow runners to steal the most bases?* 
+<br><br>
+"14-year old me was shocked to learn that most of what I've learned from baseball experts and insiders is entirely wrong"  
+~ J.J. Allaire en la #rstudioconf2020 <br> (fundador de RStudio)  
+<br>
+**La intuición no es suficiente**
+]
+
+---
+# Justificación
+## ¿Por qué es necesario?
+### 2. Simpson's paradox  
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'simpson1.png'), dpi = 72)
+```
+]
+
+.pull-right[
+Al solo considerar una variable, la correlación parece negativa.
+]
+
+---
+# Justificación
+## ¿Por qué es necesario?
+### 2. Simpson's paradox  
+
+.pull-left[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'simpson2.png'), dpi = 72)
+```
+]
+
+.pull-right[
+Al considerar dos variables, la relación se invierte por completo
+]
+
+---
+# Justificación
+## ¿Por qué es necesario?
+### 2. Simpson's paradox (ejemplo)
+.pull-left[
+Intentas decidir a qué restaurante ir con tu novi@: Sophia's o Carlo's.    
+Tú le dices que en google Sophia's tiene mayor porcentaje de recomendaciones.  
+Tu novi@ te dice que tiene otros datos:
+"En Facebook tienen una encuesta en la que tanto hombres como mujeres prefieren Carlo's"  
+Mismos datos, misma gente.  
+¿Quién está mintiendo?
+]
+
+
+---
+# Justificación
+## ¿Por qué es necesario?
+### 2. Simpson's paradox (ejemplo)
+.pull-left[
+Intentas decidir a qué restaurante ir con tu novi@: Sophia's o Carlo's.    
+Tú le dices que en google Sophia's tiene mayor porcentaje de recomendaciones.  
+Tu novi@ te dice que tiene otros datos:
+"En Facebook tienen una encuesta en la que tanto hombres como mujeres prefieren Carlo's"  
+Mismos datos, misma gente.  
+¿Quién está mintiendo?
+]
+
+.pull-right[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'sophias.png'), dpi = 72)
+```
+]
+
+---
+# Justificación
+## ¿Por qué es necesario?
+### 2. Simpson's paradox (ejemplo)
+.pull-left[
+Intentas decidir a qué restaurante ir con tu novi@: Sophia's o Carlo's.    
+Tú le dices que en google Sophia's tiene mayor porcentaje de recomendaciones.  
+Tu novi@ te dice que tiene otros datos:
+"En Facebook tienen una encuesta en la que tanto hombres como mujeres prefieren Carlo's"  
+Mismos datos, misma gente.  
+¿Quién está mintiendo?
+]
+
+.pull-right[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+knitr::include_graphics(here::here('figs', 'sophias.png'), dpi = 72)
+```
+
+<br>
+**La perspectiva es importante**
+]
+
+---
+# Justificación
+## ¿Por qué es necesario?
+### 3. (GRAN) Etc.
+Info muy resumida [aquí](https://resources.rstudio.com/rstudio-conf-2020/value-in-data-science-beyond-models-in-production-eduardo-arino-de-la-rubia)  
+Un buen ejemplo de uso real [aquí](https://resources.rstudio.com/rstudio-conf-2020/welcome-to-rstudio-conf-2020)  
+Y mucho más en el material del temario.
+
+---
+# Herramientas
+.center[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=800}
+knitr::include_graphics(here::here('figs', 'data_ecosystem.png'), dpi = 72)
+```
+]
+
+---
+# Herramientas
+.center[
+Calma. Nadie usa todas...  
+]
+
+---
+# Herramientas
+.center[
+Calma. Nadie usa todas...  
+Es una lista (demasiado extensa, y repetitiva) de herramientas (y compañías), no un checklist de requisitos.  
+]
+
+---
+# Herramientas
+.center[
+Calma. Nadie usa todas...  
+Es una lista (demasiado extensa, y repetitiva) de herramientas (y compañías), no un checklist de requisitos.  
+Muchas sirven el mismo proposito
+]
+
+---
+# Herramientas
+Pero, en lo que sí nos vamos a enfocar es en esta sección:
+.center[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=800}
+knitr::include_graphics(here::here('figs', 'data_ecosystem_focus.png'), dpi = 72)
+```
+]
+
+---
+# Herramientas
+## ¿Qué es open source?
+
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+## Ejemplos?
+
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+## Ejemplos?
+[Uno](https://github.com/wch/r-source) 
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+## Ejemplos?
+[Uno](https://github.com/wch/r-source) (y es su cumpleaños! `r emo::ji('birthday')`)
+
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+## Ejemplos?
+[Uno](https://github.com/wch/r-source) (y es su cumpleaños! `r emo::ji('birthday')`),  
+[Dos](https://github.com/python/cpython) 
+
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+## Ejemplos?
+[Uno](https://github.com/wch/r-source) (y es su cumpleaños! `r emo::ji('birthday')`),  
+[Dos](https://github.com/python/cpython) (no es su cumpleaños)
+
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+## Ejemplos?
+[Uno](https://github.com/wch/r-source) (y es su cumpleaños! `r emo::ji('birthday')`),  
+[Dos](https://github.com/python/cpython) (no es su cumpleaños),  
+[Tres](https://github.com/rstudio/rstudio)
+
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+## Ejemplos?
+[Uno](https://github.com/wch/r-source) (y es su cumpleaños! `r emo::ji('birthday')`),  
+[Dos](https://github.com/python/cpython) (no es su cumpleaños),  
+[Tres](https://github.com/rstudio/rstudio),  
+[Cuatro](https://github.com/jupyter/jupyter-book)
+
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+## Ejemplos?
+[Uno](https://github.com/wch/r-source) (y es su cumpleaños! `r emo::ji('birthday')`),  
+[Dos](https://github.com/python/cpython) (no es su cumpleaños),  
+[Tres](https://github.com/rstudio/rstudio),  
+[Cuatro](https://github.com/jupyter/jupyter-book),  
+[Cinco](https://github.com/JuliaLang/julia), 
+[Seís](https://github.com/golang/go)
+
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+## Ejemplos?
+[Uno](https://github.com/wch/r-source) (y es su cumpleaños! `r emo::ji('birthday')`),  
+[Dos](https://github.com/python/cpython) (no es su cumpleaños),  
+[Tres](https://github.com/rstudio/rstudio),  
+[Cuatro](https://github.com/jupyter/jupyter-book),  
+[Cinco](https://github.com/JuliaLang/julia), 
+[Seís](https://github.com/golang/go),  
+[Siete](https://github.com/torvalds/linux), [Ocho](https://github.com/elastic/elasticsearch), 
+[Nueve](https://github.com/kubernetes/kubernetes/graphs/contributors)
+
+---
+# Herramientas
+## ¿Qué es open source?
+Definición de opensource.com:  
+*"Open source software is software with source code that anyone can inspect, modify, and enhance."* 
+## Ejemplos?
+[Uno](https://github.com/wch/r-source) (y es su cumpleaños! `r emo::ji('birthday')`),  
+[Dos](https://github.com/python/cpython) (no es su cumpleaños),  
+[Tres](https://github.com/rstudio/rstudio),  
+[Cuatro](https://github.com/jupyter/jupyter-book),  
+[Cinco](https://github.com/JuliaLang/julia), 
+[Seís](https://github.com/golang/go),  
+[Siete](https://github.com/torvalds/linux), [Ocho](https://github.com/elastic/elasticsearch), 
+[Nueve](https://github.com/kubernetes/kubernetes/graphs/contributors)  
+Y mucho más: 
+[pandas](https://github.com/pandas-dev/pandas), [ggplot2](https://github.com/tidyverse/ggplot2),
+[git](https://github.com/git/git), [mlflow](https://github.com/mlflow/mlflow), [docker](https://github.com/docker),
+[postgreSQL](https://github.com/postgres/postgres)
+
+
+---
+# Herramientas
+*Solo veremos herramientas open source, porque:*
+
+---
+# Herramientas
+*Solo veremos herramientas open source, porque:*
+1. 
+
+---
+# Herramientas
+*Solo veremos herramientas open source, porque:*
+1. `r emo::ji('valentine')`
+
+---
+# Herramientas
+*Solo veremos herramientas open source, porque:*
+1. `r emo::ji('valentine')`
+2. 
+---
+# Herramientas
+*Solo veremos herramientas open source, porque:*
+1. `r emo::ji('valentine')`
+2. Viviran  por siempre en un repositorio de código en la Antartica.
+---
+# Herramientas
+*Solo veremos herramientas open source, porque:*
+1. `r emo::ji('valentine')`
+2. Viviran  por siempre en un repositorio de código en la Antartica.  
+En serio!
+[Véan](https://www.youtube.com/watch?v=fzI9FNjXQ0o)
+
+---
+# Herramientas
+*Solo veremos herramientas open source, porque:*
+1. `r emo::ji('valentine')`
+2. Viviran  por siempre en un repositorio de código en la Antartica.  
+En serio!
+[Véan](https://www.youtube.com/watch?v=fzI9FNjXQ0o)
+3. **Todas las empresas, y todo el análisis, se está moviendo hacia allá**. 
+
+---
+# Herramientas
+*Solo veremos herramientas open source, porque:*
+1. `r emo::ji('valentine')`
+2. Viviran  por siempre en un repositorio de código en la Antartica.  
+En serio!
+[Véan](https://www.youtube.com/watch?v=fzI9FNjXQ0o)
+3. **Todas las empresas, y todo el análisis, se está moviendo hacia allá**. Evidencia
+[aquí](https://www.cnbc.com/2019/12/14/how-open-source-software-became-the-new-industry-standard.html) 
+
+---
+# Workflow 
+.center[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=600}
+knitr::include_graphics(here::here('figs', 'azure_ds_lifecycle.png'), dpi = 72)
+```
+]
+
+---
+# Workflow 
+.center[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=600}
+knitr::include_graphics(here::here('figs', 'azure_ds_lifecycle.png'), dpi = 72)
+```
+]
+También es conocido como *pipeline*.
+
+---
+# Workflow 
+Pero comencemos más sencillo:
+.center[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=800}
+knitr::include_graphics(here::here('figs', 'simple_ds_workflow.png'), dpi = 72)
+```
+]
+
+---
+# Workflow 
+Pero comencemos más sencillo:
+.center[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=800}
+knitr::include_graphics(here::here('figs', 'simple_ds_workflow.png'), dpi = 72)
+```
+]
+¿Qué parte es la que parece la más emocionante/interesante?
+
+---
+# Workflow 
+Pero comencemos más sencillo:
+.center[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=800}
+knitr::include_graphics(here::here('figs', 'simple_ds_workflow_highlight.png'), dpi = 72)
+```
+]
+¿Qué parte es la que parece la más emocionante/interesante?
+
+---
+# Disclaimer
+La parte importante de este curso no será hacer modelos elaborados de ML;
+tanto en academia, como en industria, ML es una parte muy pequeña.
+.center[
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=600}
+knitr::include_graphics(here::here('figs', 'google_cloud_ai_2697.png'), dpi = 72)
+```
+]
+Tener buenos datos y un buen control sobre ellos es lo que lleva a un buen análisis.
+
+---
+.center[
+# A programar!
+]
