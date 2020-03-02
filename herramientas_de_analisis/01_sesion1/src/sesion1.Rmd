@@ -5,11 +5,11 @@ author: "Carlos A. Haro"
 date: "29/febrero/2020"
 output:
   xaringan::moon_reader:
-    self_contained: TRUE
+    self_contained: FALSE
     lib_dir: libs
     css: ["xaringan_themer.css", "slides_style.css"]
     nature:
-      highlightStyle: solarized-light
+      highlightStyle: kate
       highlightLines: true
       countIncrementalSlides: false
       ratio: "16:9"
@@ -529,29 +529,48 @@ Tener buenos datos y un buen control sobre ellos es lo que lleva a un buen anál
 ]
 
 ---
+# Esquema de una gráfica de ggplot
 .center[
-```{r}
-countdown::countdown(minutes = 2L)
+**GGPLOT** *+* **AESthetics** *+* **GEOM**
+]
+GGPLOT := la inicialización de la gráfica  
+AESthetics := ¿Qué variables veremos en la gráfica?  
+GEOM := ¿Cómo veremos esas variable en la gráfica? En forma de puntos, barras, líneas, etc  
+
+---
+.pull-left[
+```{r echo=FALSE}
+library(ggplot2)
+ggplot(diamonds) +
+  aes(x = cut) +
+  geom_bar()
+```
+]
+
+.pull-right[
+```{r, echo=FALSE}
+countdown::countdown(4L)
 ```
 
 ]
 
 ---
 .pull-left[
-```{r echo = FALSE}
+```{r echo=FALSE}
 library(ggplot2)
 ggplot(diamonds) +
   aes(x = cut) +
   geom_bar()
 ```
-
 ]
 
 .pull-right[
-```{r}
-countdown::countdown(7L)
+```{r eval=FALSE}
+library(ggplot2)
+ggplot(diamonds) +
+  aes(x = cut) +
+  geom_bar()
 ```
-
 ]
 
 ---
@@ -567,5 +586,24 @@ ggplot(diamonds) +
 .pull-right[
 ```{r}
 countdown::countdown(4L)
+```
+]
+
+---
+.pull-left[
+```{r echo = FALSE}
+library(ggplot2)
+ggplot(diamonds) +
+  aes(x = price, y = cut) +
+  geom_point()
+```
+]
+
+.pull-right[
+```{r, eval=FALSE}
+library(ggplot2)
+ggplot(diamonds) +
+  aes(x = price, y = cut) +
+  geom_point()
 ```
 ]
