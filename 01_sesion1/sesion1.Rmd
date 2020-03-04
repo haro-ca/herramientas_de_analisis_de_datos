@@ -291,7 +291,7 @@ Muchas sirven el mismo proposito
 # Herramientas
 Pero, en lo que sí nos vamos a enfocar es en esta sección:
 .center[
-```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=800}
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=650}
 knitr::include_graphics(here::here('figs', 'data_ecosystem_focus.png'), dpi = 72)
 ```
 ]
