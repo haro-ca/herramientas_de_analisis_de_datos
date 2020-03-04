@@ -1,13 +1,13 @@
 ---
 title: "> 01 <br> > Herramientas de análisis de datos"
-subtitle: "> Curso breve de técnicas modernas de análisis <br><i class='fas fa-link'></i> [Material](github.com/haro_ca/teaching/herramientas_de_analisis) <br> <i class='fa fa-twitter'></i> [Twitter](https://twitter.com/haro_ca_)"
+subtitle: "> Curso breve de técnicas modernas de análisis <br><i class='fas fa-link'></i> [Material](https://github.com/haro-ca/teaching) <br> <i class='fa fa-twitter'></i> [Twitter](https://twitter.com/haro_ca_)"
 author: "Carlos A. Haro"
 date: "29/febrero/2020"
 output:
   xaringan::moon_reader:
     self_contained: FALSE
     lib_dir: libs
-    css: ["xaringan_themer.css", "slides_style.css"]
+    css: ["css/xaringan_themer.css", "css/slides_style.css"]
     nature:
       highlightStyle: kate
       highlightLines: true
@@ -52,25 +52,25 @@ knitr::knit_hooks$set(source = function(x, options) {
 # Temario
 
 .pull-left[
-```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=400}
 knitr::include_graphics(here::here('figs', 'temario.png'), dpi = 72)
 ```
 ]
 
 .pull-right[
-PDF en [éste](https://github.com/haro-ca/teaching/raw/master/herramientas_de_analisis/temario/temario.pdf) link
+PDF en [éste](https://github.com/haro-ca/teaching/raw/master/herramientas_de_analisis/00_temario/temario.pdf) link
 ]
 ---
 # Temario
 
 .pull-left[
-```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=400}
 knitr::include_graphics(here::here('figs', 'temario.png'), dpi = 72)
 ```
 ]
 
 .pull-right[
-PDF en [éste](https://github.com/haro-ca/teaching/raw/master/herramientas_de_analisis/temario/temario.pdf) link
+PDF en [éste](https://github.com/haro-ca/teaching/raw/master/herramientas_de_analisis/00_temario/temario.pdf) link
 - +33 horas en total  
 - 4 lenguajes de programación  
 (R, Python, Bash y SQL)  
@@ -83,13 +83,13 @@ PDF en [éste](https://github.com/haro-ca/teaching/raw/master/herramientas_de_an
 # Temario
 
 .pull-left[
-```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=400}
 knitr::include_graphics(here::here('figs', 'temario.png'), dpi = 72)
 ```
 ]
 
 .pull-right[
-PDF en [éste](https://github.com/haro-ca/teaching/raw/master/herramientas_de_analisis/temario/temario.pdf) link
+PDF en [éste](https://github.com/haro-ca/teaching/raw/master/herramientas_de_analisis/00_temario/temario.pdf) link
 - +33 horas en total  
 - 4 lenguajes de programación  
 (R, Python, Bash y SQL)  
@@ -111,7 +111,7 @@ el trabajo con datos.**
 ## ¿Por qué es necesario?
 ### 1. The Bill James Baseball Abstract
 .pull-left[
-```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=300}
 knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
 ```
 ]
@@ -121,7 +121,7 @@ knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
 ## ¿Por qué es necesario?
 ### 1. The Bill James Baseball Abstract
 .pull-left[
-```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=300}
 knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
 ```
 ]
@@ -135,7 +135,7 @@ knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
 ## ¿Por qué es necesario?
 ### 1. The Bill James Baseball Abstract
 .pull-left[
-```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=300}
 knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
 ```
 ]
@@ -152,7 +152,7 @@ knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
 ## ¿Por qué es necesario?
 ### 1. The Bill James Baseball Abstract  
 .pull-left[
-```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=450}
+```{r, echo=FALSE, warning=FALSE, message = FALSE, out.width=300}
 knitr::include_graphics(here::here('figs', 'bill_james_baseball.jpg'), dpi = 72)
 ```
 ]
@@ -539,7 +539,7 @@ GEOM := ¿Cómo veremos esas variable en la gráfica? En forma de puntos, barras
 
 ---
 .pull-left[
-```{r echo=FALSE}
+```{r, first_example, echo=FALSE}
 library(ggplot2)
 ggplot(diamonds) +
   aes(x = cut) +
@@ -556,11 +556,7 @@ countdown::countdown(4L)
 
 ---
 .pull-left[
-```{r echo=FALSE}
-library(ggplot2)
-ggplot(diamonds) +
-  aes(x = cut) +
-  geom_bar()
+```{r, ref.label='first_example', echo=FALSE}
 ```
 ]
 
@@ -575,7 +571,7 @@ ggplot(diamonds) +
 
 ---
 .pull-left[
-```{r echo = FALSE}
+```{r, second_example, echo = FALSE}
 library(ggplot2)
 ggplot(diamonds) +
   aes(x = price, y = cut) +
@@ -584,18 +580,14 @@ ggplot(diamonds) +
 ]
 
 .pull-right[
-```{r}
+```{r, echo=FALSE}
 countdown::countdown(4L)
 ```
 ]
 
 ---
 .pull-left[
-```{r echo = FALSE}
-library(ggplot2)
-ggplot(diamonds) +
-  aes(x = price, y = cut) +
-  geom_point()
+```{r, ref.label='second_example', echo=FALSE}
 ```
 ]
 
